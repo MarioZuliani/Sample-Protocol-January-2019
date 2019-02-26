@@ -1,0 +1,45 @@
+---
+title: "Test Data Protocol 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(leaflet)
+```
+
+```{r}
+Panoche <- read.csv("Panoche2.csv", header = TRUE)
+Mojave <- read.csv("SampleDens.csv", header = TRUE)
+Sites <- read.csv("PanocheSites.csv", header = TRUE)
+```
+
+###Summary Data of Mojave Sites
+```{r}
+summary(Mojave)
+```
+###Summary Data of Panoche Sites
+```{r}
+summary(Panoche)
+```
+###Summary Data of Panoche Site Locations
+```{r}
+summary(Sites)
+```
+###Sites Map in Panoche
+```{r}
+psites <- leaflet(Sites)%>%
+  addTiles()%>%
+  addCircles(lng = ~lng, lat = ~lat, weight = 1, radius = 20, popup = ~Site.Name)
+psites
+```
+
+```{r}
+sitedensity <- Panoche$Site.ID
+ggplot(data=Panoche, aes(Panoche$Site.ID)) +
+  geom_histogram()
+```
