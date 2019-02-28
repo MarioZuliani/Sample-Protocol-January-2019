@@ -39,7 +39,68 @@ psites
 ```
 
 ```{r}
+
+```
+###Visuals showing number of Shrubs per site in Panoche
+```{r}
 sitedensity <- Panoche$Site.ID
 ggplot(data=Panoche, aes(Panoche$Site.ID)) +
   geom_histogram()
 ```
+```{r}
+ggplot(data = Panoche, aes(Site.ID, Shrub.ID)) +
+  geom_point()
+```
+```{r}
+ggplot(data = Panoche, aes(sitedensity, Site.ID)) +
+  geom_boxplot()
+```
+
+###Correlation of site to X, Y, and Z measurements
+```{r}
+cor.test(Panoche$Site.ID, Panoche$x..m.)
+cor.test(Panoche$Site.ID, Panoche$y..m.)
+cor.test(Panoche$Site.ID, Panoche$z..m.)
+```
+
+```{r}
+Panochelm <- lm(Site.ID ~ Shrub.ID, data = Panoche)
+anova(Panochelm)
+```
+
+###Variance of Shrub Site, x, y, and z measurments
+```{r}
+var(Panoche$Site.ID)
+var(Panoche$x..m.)
+var(Panoche$y..m.)
+var(Panoche$z..m.)
+```
+
+###Standard Error for Panoche Data
+```{r}
+sd(Panoche$Site.ID)
+sd(Panoche$x..m.)
+sd(Panoche$y..m.)
+sd(Panoche$z..m.)
+```
+
+###T-test for panoche site
+```{r}
+t.test(Panoche$Site.ID)
+```
+
+###Data For Mojave
+####Variance Data of X, Y, and Z
+```{r}
+var(Mojave$x..m.)
+var(Mojave$y..m.)
+var(Mojave$z..m.)
+```
+
+####Standard Error for X, Y, and Z in Mojave
+```{r}
+sd(Mojave$x..m.)
+sd(Mojave$y..m.)
+sd(Mojave$z..m.)
+```
+
