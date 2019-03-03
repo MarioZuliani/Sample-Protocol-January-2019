@@ -1,0 +1,123 @@
+---
+title: "Test Data Protocol 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(leaflet)
+library(sp)
+```
+
+```{r}
+Panoche <- read.csv("Panoche2.csv", header = TRUE)
+Mojave <- read.csv("SampleDens.csv", header = TRUE)
+Sites <- read.csv("PanocheSites.csv", header = TRUE)
+```
+
+###Summary Data of Mojave Sites
+```{r}
+summary(Mojave)
+```
+###Summary Data of Panoche Sites
+```{r}
+summary(Panoche)
+```
+###Summary Data of Panoche Site Locations
+```{r}
+summary(Sites)
+```
+
+###Sites Map in Panoche
+```{r}
+psites <- leaflet(Sites)%>%
+  addTiles()%>%
+  addCircles(lng = ~lng, lat = ~lat, weight = 1, radius = 20, popup = ~Site.Name)
+psites
+```
+
+###Visuals showing number of Shrubs per site in Panoche
+```{r}
+sitedensity <- Panoche$Site.ID
+ggplot(data=Panoche, aes(Panoche$Site.ID)) +
+  geom_histogram() + ylab("Shrub Count") + xlab("SiteID") +
+  ggtitle("Total Shrub count at each Panoche Site") +theme_classic()
+```
+```{r}
+ggplot(data = Panoche, aes(Site.ID, Shrub.ID)) +
+  geom_point() + xlab("Site ID") + ylab("Shrub ID") +
+  ggtitle("Number of Shrubs per Site") +theme_classic()
+```
+```{r}
+ggplot(data = Panoche, aes(sitedensity, Site.ID)) +
+  geom_boxplot() + xlab("site Density") + ylab("Site ID") + theme_classic()
+```
+
+###Correlation of site to X, Y, and Z measurements
+```{r}
+cor.test(Panoche$Site.ID, Panoche$x..m.)
+cor.test(Panoche$Site.ID, Panoche$y..m.)
+cor.test(Panoche$Site.ID, Panoche$z..m.)
+```
+
+```{r}
+Panochelm <- lm(Site.ID ~ Shrub.ID, data = Panoche)
+anova(Panochelm)
+```
+
+###Variance of Shrub Site, x, y, and z measurments
+```{r}
+var(Panoche$Site.ID)
+var(Panoche$x..m.)
+var(Panoche$y..m.)
+var(Panoche$z..m.)
+```
+
+###Standard Error for Panoche Data
+```{r}
+sd(Panoche$Site.ID)
+sd(Panoche$x..m.)
+sd(Panoche$y..m.)
+sd(Panoche$z..m.)
+```
+
+###T-test for panoche site
+```{r}
+t.test(Panoche$Site.ID)
+```
+
+###Data For Mojave
+####Variance Data of X, Y, and Z
+```{r}
+var(Mojave$x..m.)
+var(Mojave$y..m.)
+var(Mojave$z..m.)
+```
+
+####Standard Error for X, Y, and Z in Mojave
+```{r}
+sd(Mojave$x..m.)
+sd(Mojave$y..m.)
+sd(Mojave$z..m.)
+```
+
+```{r}
+Panoche %>% as.data.frame %>% 
+  ggplot(aes(lat, lng)) + geom_point(aes(), color="blue", alpha=3/4) + 
+  ggtitle("Site locations") + coord_equal() + theme_bw() +
+  xlab("Latitude") + ylab("Longitude") + theme_classic()
+```
+```{r}
+Panoche %>% as.data.frame %>% 
+  ggplot(aes(Site.ID, x..m.)) + geom_point(aes(), color="blue", alpha=3/4) + 
+  ggtitle("Longest side of shrub measurment") + coord_equal() + theme_bw() +
+  xlab("Stie ID") + ylab("x measurement (cm)") + theme_classic()
+```
+```{r}
+coordinates(Panoche) <- ~lat+lng
+```
+
