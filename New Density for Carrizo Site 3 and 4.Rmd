@@ -1,0 +1,74 @@
+---
+title: "New Shrub density"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+library(leaflet)
+library(markdown)
+library(knitr)
+```
+
+```{r}
+site3_20m <- read.csv("site3_20m.csv")
+site3_30m <- read.csv("site3_30m.csv")
+site3_40m <- read.csv("site3_40m.csv")
+site3_50m <- read.csv("site3_50m.csv")
+site4_20m <- read.csv("site4_20m.csv")
+site4_30m <- read.csv("site4_30m.csv")
+site4_40m <- read.csv("site4_40m.csv")
+site4_50m <- read.csv("site4_50m.csv")
+```
+```{r}
+shrub3_20m_box <- ggplot(data = site3_20m, aes(x = FID, y = shrub_cov)) +
+  geom_boxplot() + labs(title = "site 3 20m")
+shrub3_30m_box <- ggplot(data = site3_30m, aes(x = FID, y = ShrubCov)) +
+  geom_boxplot() + labs(title = "site 3 30m")
+shrub3_40m_box <- ggplot(data = site3_40m, aes(x = FID, y = ShrubCov)) +
+  geom_boxplot() + labs(title = "site 3 40m")
+shrub3_50m_box <- ggplot(data = site3_50m, aes(x = FID, y = ShrubCov)) +
+  geom_boxplot() + labs(title = "site 3 50m")
+```
+
+```{r}
+shrub3_20m_box
+shrub3_30m_box
+shrub3_40m_box
+shrub3_50m_box
+```
+
+```{r}
+shrub4_20m_box <- ggplot(data = site4_20m, aes(x = FID, y = shrub_cov)) +
+  geom_boxplot() + labs(title = "site 4 20m")
+shrub4_30m_box <- ggplot(data = site4_30m, aes(x = FID, y = ShrubCov)) +
+  geom_boxplot() + labs(title = "site 4 30m")
+shrub4_40m_box <- ggplot(data = site4_40m, aes(x = FID, y = ShrubCov)) +
+  geom_boxplot() + labs(title = "site 4 40m")
+shrub4_50m_box <- ggplot(data = site4_50m, aes(x = FID, y = ShrubCov)) +
+  geom_boxplot() + labs(title = "site 4 50m")
+```
+
+```{r}
+shrub4_20m_box
+shrub4_30m_box
+shrub4_40m_box
+shrub4_50m_box
+```
+
+```{r}
+mean(site3_20m$shrub_cov)
+mean(site3_30m$ShrubCov)
+mean(site3_40m$ShrubCov)
+mean(site3_50m$ShrubCov)
+```
+
+```{r}
+mean(site4_20m$shrub_cov)
+mean(site4_30m$ShrubCov)
+mean(site4_40m$ShrubCov)
+mean(site4_50m$ShrubCov)
+```
