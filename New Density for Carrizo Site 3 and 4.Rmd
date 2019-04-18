@@ -22,7 +22,10 @@ site4_20m <- read.csv("site4_20m.csv")
 site4_30m <- read.csv("site4_30m.csv")
 site4_40m <- read.csv("site4_40m.csv")
 site4_50m <- read.csv("site4_50m.csv")
+site3_cover <- read.csv("Site3_shrub_cover.csv")
+site4_cover <- read.csv("site4_shrubcov.csv")
 ```
+
 ```{r}
 shrub3_20m_box <- ggplot(data = site3_20m, aes(x = FID, y = shrub_cov)) +
   geom_boxplot() + labs(title = "site 3 20m")
@@ -72,3 +75,32 @@ mean(site4_30m$ShrubCov)
 mean(site4_40m$ShrubCov)
 mean(site4_50m$ShrubCov)
 ```
+
+```{r}
+site3_20mcov <- site3_cover$shrub_cov_20m
+site3_30mcov <- site3_cover$shrub_cov_30m
+site3_40mcov <- site3_cover$shrub_cov_40m
+site3_50mcov <- site3_cover$shrub_cov_50m
+
+boxplot(site3_20mcov, site3_30mcov, site3_40mcov, site3_50mcov,
+        main = "Site 3 boxplot comparison",
+       ylim = c(0,0.7),
+       names = c("20m", "30m", "40m", "50m"),
+       xlab = "radius",
+       ylab = "shrub cover")
+```
+
+```{r}
+site4_20mcov <- site4_cover$shrub_cov_20m
+site4_30mcov <- site4_cover$shrub_cov_30m
+site4_40mcov <- site4_cover$shrub_cov_40m
+site4_50mcov <- site4_cover$shrub_cov_50m
+
+boxplot(site3_20mcov, site3_30mcov, site3_40mcov, site3_50mcov,
+        main = "Site 4 boxplot comparison",
+       ylim = c(0,0.7),
+       names = c("20m", "30m", "40m", "50m"),
+       xlab = "radius",
+       ylab = "shrub cover")
+```
+
